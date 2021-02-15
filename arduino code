@@ -1,0 +1,51 @@
+#include<Servo.h>
+#include<SoftwareSerial.h>
+Servo serv1;
+Servo serv2;
+Servo serv3;
+Servo serv4;
+SoftwareSerial bt(4,3);
+
+char da1 ;
+char da2 ;
+char da3 ;
+char da4 ;
+char data ;
+
+void setup() {
+serv1.attach(3);
+serv2.attach(5);
+serv3.attach(6);
+serv4.attach(10);
+bt.begin(9600);
+}
+
+void loop() {
+while(bt.available()<0){}
+data = bt.read();
+if(data == 'f'){
+  da1= bt.read();
+  da1 = map(da1,0,180,0,255);
+  da1 = constrain(da1,0,180);
+  serv1.write(da1);
+}
+if(data == 's'){
+  da2= bt.read();
+  da2 = map(da2,0,180,0,255);
+  da2 = constrain(da2,0,180);
+  serv2.write(da2);
+}
+if(data == 't'){
+  da3= bt.read();
+  da3 = map(da3,0,180,0,255);
+  da3 = constrain(da3,0,180);
+  serv3.write(da3);
+}
+if(data == 'b'){
+  da4= bt.read();
+  da4 = map(da4,0,180,0,255);
+  da4 = constrain(da4,0,180);
+  serv4.write(da4);
+}
+data = 0;
+  }
